@@ -1,0 +1,70 @@
+# ============================
+# Build Folders
+# ============================
+bin/
+obj/
+artifacts/
+
+# ============================
+# Visual Studio / IDE
+# ============================
+*.user
+*.suo
+*.vscode/
+*.vs/
+*.ncrunch*
+*.DotSettings.user
+.idea/
+
+# ============================
+# ASP.NET Core / .NET
+# ============================
+*.db
+*.db-shm
+*.db-wal
+*.log
+*.DS_Store
+
+# ============================
+# Entity Framework
+# ============================
+Migrations/*.Designer.cs
+Migrations/*.snapshot.cs
+
+# ============================
+# Publish / deployment
+# ============================
+*.Publish.xml
+*.azurePubxml
+*.pubxml.user
+publish/
+
+# ============================
+# Configuration / secrets
+# ============================
+appsettings.Development.json
+appsettings.Local.json
+secrets.json
+
+# ============================
+# NuGet
+# ============================
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+
+# ============================
+# Rider
+# ============================
+.idea/
+*.sln.iml
+
+# ============================
+# Others
+# ============================
+*.pidb
+*.sbr
+*.cache
+*.pdb
+*.log

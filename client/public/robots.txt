@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /login
+Allow: /
+Disallow: /dashboard
+Disallow: /driver-dashboard
+Disallow: /vehicles
+Disallow: /drivers
+Disallow: /api/
+Disallow: /issues
+Disallow: /report-issue
