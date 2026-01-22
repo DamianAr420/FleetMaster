@@ -78,7 +78,7 @@ namespace FleetMaster.API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DriverId")
+                    b.Property<int?>("DriverId")
                         .HasColumnType("int");
 
                     b.Property<string>("Priority")
@@ -396,9 +396,7 @@ namespace FleetMaster.API.Migrations
                 {
                     b.HasOne("FleetMaster.API.Models.Driver", "Driver")
                         .WithMany()
-                        .HasForeignKey("DriverId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DriverId");
 
                     b.HasOne("FleetMaster.API.Models.Vehicle", "Vehicle")
                         .WithMany()
