@@ -2,12 +2,16 @@
 import { ref, computed, onMounted } from "vue";
 import { useIssueStore } from "@/store/issueStore";
 import MainLayout from "@/layouts/MainLayout.vue";
+import AddIssueModal from "@/components/AddIssueModal.vue";
+import { useToast } from "@/composables/useToast";
 
 const issueStore = useIssueStore();
+const { showToast } = useToast();
 
 const filterVehicle = ref("");
 const filterDriver = ref("");
 const filterDate = ref("");
+const isModalOpen = ref(false);
 
 onMounted(() => {
   issueStore.fetchAllIssues();
@@ -19,6 +23,10 @@ const priorityWeight: Record<string, number> = {
   Niski: 1,
 };
 
+const openModal = () => {
+  isModalOpen.value = true;
+};
+
 const statuses = ["Zgłoszone", "W naprawie", "Naprawione"] as const;
 
 const processedIssues = computed(() => {
@@ -28,7 +36,7 @@ const processedIssues = computed(() => {
     list = list.filter((i) =>
       i.vehicle?.licensePlate
         .toLowerCase()
-        .includes(filterVehicle.value.toLowerCase())
+        .includes(filterVehicle.value.toLowerCase()),
     );
   }
 
@@ -36,7 +44,7 @@ const processedIssues = computed(() => {
     list = list.filter((i) =>
       i.driver?.lastName
         .toLowerCase()
-        .includes(filterDriver.value.toLowerCase())
+        .includes(filterDriver.value.toLowerCase()),
     );
   }
 
@@ -46,7 +54,7 @@ const processedIssues = computed(() => {
 
   return list.sort(
     (a, b) =>
-      (priorityWeight[b.priority] || 0) - (priorityWeight[a.priority] || 0)
+      (priorityWeight[b.priority] || 0) - (priorityWeight[a.priority] || 0),
   );
 });
 
@@ -54,7 +62,7 @@ const groupedIssues = computed(() => {
   return {
     Zgłoszone: processedIssues.value.filter((i) => i.status === "Zgłoszone"),
     "W naprawie": processedIssues.value.filter(
-      (i) => i.status === "W naprawie"
+      (i) => i.status === "W naprawie",
     ),
     Naprawione: processedIssues.value.filter((i) => i.status === "Naprawione"),
   };
@@ -64,6 +72,8 @@ const resetFilters = () => {
   filterVehicle.value = "";
   filterDriver.value = "";
   filterDate.value = "";
+
+  showToast("Filtry zostały wyczyszczone", "info");
 };
 
 const getPriorityClass = (p: string) => {
@@ -78,7 +88,7 @@ const getPriorityClass = (p: string) => {
     <div class="p-4 sm:p-10 bg-slate-50 min-h-screen">
       <header class="mb-10">
         <div
-          class="flex flex-col sm:flex-row justify-between items-start gap-4 mb-8"
+          class="flex flex-col sm:flex-row justify-between items-center gap-4 mb-8"
         >
           <div>
             <h2
@@ -92,6 +102,13 @@ const getPriorityClass = (p: string) => {
               Zarządzanie stanem technicznym floty
             </p>
           </div>
+          <button
+            @click="openModal()"
+            class="flex flex-row justify-center items-center px-4 py-2 bg-blue-200 rounded-4xl border border-blue-400 text-blue-600 font-medium gap-1 hover:text-blue-800 hover:bg-blue-500 transition-colors"
+          >
+            <span>+</span>
+            <span>Dodaj usterkę</span>
+          </button>
           <button
             @click="resetFilters"
             class="text-[10px] font-black uppercase tracking-widest text-blue-600 hover:text-blue-800 transition-colors bg-blue-50 px-4 py-2 rounded-xl border border-blue-100"
@@ -223,8 +240,9 @@ const getPriorityClass = (p: string) => {
                   @change="
                     issueStore.updateStatus(
                       issue.id,
-                      ($event.target as HTMLSelectElement).value
-                    )
+                      ($event.target as HTMLSelectElement).value,
+                    );
+                    showToast('Status zaktualizowany', 'info');
                   "
                   class="w-full lg:w-auto bg-slate-900 text-white lg:bg-slate-50 lg:text-slate-900 border-none rounded-xl font-black text-[9px] uppercase py-3 lg:py-2 px-5 focus:ring-0 cursor-pointer hover:opacity-90 transition-all"
                 >
@@ -249,6 +267,7 @@ const getPriorityClass = (p: string) => {
         </section>
       </div>
     </div>
+    <AddIssueModal :isOpen="isModalOpen" @close="isModalOpen = false" />
   </MainLayout>
 </template>
 

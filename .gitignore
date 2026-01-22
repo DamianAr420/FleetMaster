@@ -1,0 +1,23 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.sln.docstates
+
+# Build / bin / obj
+[Bb]in/
+[Oo]bj/
+
+# Rider/IDE
+.idea/
+*.iml
+
+# Node / frontend
+node_modules/
+dist/
+build/
+.env
+
+# OS
+.DS_Store
+Thumbs.db
