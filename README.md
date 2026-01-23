@@ -44,6 +44,7 @@ FleetMaster to webowa aplikacja umożliwiająca zarządzanie flotą pojazdów or
 
 ### 📱 Nawigacja mobilna
 ![Navbar Mobile](ss/navbar-mobile.png)
+![Navbar Open](ss/navbar.png)
 ![Navbar Close](ss/navbar-close.png)
 
 ---
