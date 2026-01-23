@@ -183,7 +183,9 @@ const getPriorityClass = (p: string) => {
               :class="
                 issue.priority === 'Wysoki'
                   ? 'border-l-red-500'
-                  : 'border-l-transparent'
+                  : issue.priority === 'Normalny'
+                    ? 'border-l-blue-500'
+                    : 'border-l-transparent'
               "
             >
               <div

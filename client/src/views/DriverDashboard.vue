@@ -28,7 +28,7 @@ const myIssues = computed(() => {
     .filter((issue) => issue.driver?.id === driverId)
     .sort(
       (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
     );
 });
 
@@ -87,7 +87,7 @@ const getStatusClass = (status: string) => {
                 >
                   {{
                     getVehicleIcon(
-                      driverStore.driverProfile.assignedVehicle.type
+                      driverStore.driverProfile.assignedVehicle.type,
                     )
                   }}
                 </span>
@@ -110,7 +110,9 @@ const getStatusClass = (status: string) => {
                   >
                     Tablice Rejestracyjne
                   </p>
-                  <p class="font-black text-lg sm:text-xl tracking-widest">
+                  <p
+                    class="font-black text-lg sm:text-xl tracking-widest uppercase"
+                  >
                     {{ driverStore.driverProfile.assignedVehicle.licensePlate }}
                   </p>
                 </div>
@@ -123,9 +125,18 @@ const getStatusClass = (status: string) => {
                     Status Pojazdu
                   </p>
                   <p
-                    class="font-black text-lg sm:text-xl text-emerald-400 uppercase italic"
+                    class="font-black text-lg sm:text-xl uppercase italic"
+                    :class="
+                      driverStore.driverProfile.assignedVehicle.isOperational
+                        ? 'text-emerald-400'
+                        : 'text-red-500'
+                    "
                   >
-                    Sprawny
+                    {{
+                      driverStore.driverProfile.assignedVehicle.isOperational
+                        ? "Sprawny"
+                        : "Serwis"
+                    }}
                   </p>
                 </div>
               </div>
