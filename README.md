@@ -139,6 +139,7 @@ It provides separate dashboards for admins and drivers, enabling vehicle handlin
 
 ### 📱 Mobile Navigation
 ![Navbar Mobile](ss/navbar-mobile.png)
+![Navbar Open](ss/navbar.png)
 ![Navbar Close](ss/navbar-close.png)
 
 ---
